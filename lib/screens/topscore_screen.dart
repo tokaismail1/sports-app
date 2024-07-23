@@ -5,14 +5,16 @@ import 'package:sportsapp/models/topscore_model.dart';
 import 'package:sportsapp/service/topscore_repo.dart';
 
 class TopScorersScreen extends StatelessWidget {
+  final int leagueId;
   final TopScorerService _topScorerService = TopScorerService();
+
+  TopScorersScreen({required this.leagueId});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => TopScorerCubit(_topScorerService)..fetchTopScorers('141'),
+      create: (context) => TopScorerCubit(_topScorerService)..fetchTopScorers(leagueId.toString()), // Use leagueId
       child: Scaffold(
-        //appBar: AppBar(title: Text('Top Scorers')),
         body: BlocBuilder<TopScorerCubit, TopScorerState>(
           builder: (context, state) {
             if (state is TopScorerLoading) {

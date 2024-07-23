@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:sportsapp/screens/teams_screen.dart';
 import 'package:sportsapp/screens/topscore_screen.dart';
 
+class TeamsDetailsScreen extends StatefulWidget {
+  final int leagueId;
 
-class teamsdetailsscreen extends StatefulWidget {
+  const TeamsDetailsScreen({required this.leagueId, Key? key}) : super(key: key);
+
   @override
-  _teamsdetailsscreenState createState() => _teamsdetailsscreenState();
+  _TeamsDetailsScreenState createState() => _TeamsDetailsScreenState();
 }
 
-class _teamsdetailsscreenState extends State<teamsdetailsscreen> with SingleTickerProviderStateMixin {
+class _TeamsDetailsScreenState extends State<TeamsDetailsScreen> with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -32,7 +35,7 @@ class _teamsdetailsscreenState extends State<teamsdetailsscreen> with SingleTick
             Text(
               'Sports App',
               style: TextStyle(
-                color: Colors.black, // Set text color to black
+                color: Colors.black,
                 fontSize: 20.0,
                 fontWeight: FontWeight.bold,
               ),
@@ -41,19 +44,19 @@ class _teamsdetailsscreenState extends State<teamsdetailsscreen> with SingleTick
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.home, color: Color(0xFF5C5470)), // Home icon
+            icon: Icon(Icons.home, color: Color(0xFF5C5470)),
             onPressed: () {
               // Add home button functionality here
             },
           ),
           IconButton(
-            icon: Icon(Icons.login, color: Color(0xFF5C5470)), // Login icon
+            icon: Icon(Icons.login, color: Color(0xFF5C5470)),
             onPressed: () {
               // Add login button functionality here
             },
           ),
         ],
-        iconTheme: IconThemeData(color: Color(0xFF5C5470)), // Set icon theme color
+        iconTheme: IconThemeData(color: Color(0xFF5C5470)),
         bottom: TabBar(
           controller: _tabController,
           tabs: [
@@ -65,8 +68,8 @@ class _teamsdetailsscreenState extends State<teamsdetailsscreen> with SingleTick
       body: TabBarView(
         controller: _tabController,
         children: [
-          TeamsScreen(),
-          TopScorersScreen(),
+          TeamsScreen(leagueId: widget.leagueId),
+          TopScorersScreen(leagueId: widget.leagueId),
         ],
       ),
     );

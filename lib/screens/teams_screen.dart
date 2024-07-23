@@ -5,14 +5,16 @@ import 'package:sportsapp/service/teamsrepo.dart';
 import 'package:sportsapp/cubits/cubit/team_screen_cubit.dart';
 
 class TeamsScreen extends StatelessWidget {
+  final int leagueId;
   final TextEditingController _searchController = TextEditingController();
+
+  TeamsScreen({required this.leagueId});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => TeamsScreenCubit(TeamService())..fetchTeams('141'),
+      create: (_) => TeamsScreenCubit(TeamService())..fetchTeams(leagueId.toString()), // Use leagueId
       child: Scaffold(
-        //appBar: AppBar(title: Text('Teams')),
         body: Column(
           children: [
             Padding(
