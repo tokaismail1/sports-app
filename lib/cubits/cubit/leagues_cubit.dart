@@ -10,11 +10,11 @@ class LeaguesCubit extends Cubit<LeaguesState> {
   LeaguesCubit(this.leaguesService) : super(LeaguesInitial());
   LeaguesService leaguesService;
 
-  Future<void> getLeagues() async {
+  Future<void> getLeagues(int countryId) async {
     try {
       emit(LeaguesLoading());
 
-      var data = await leaguesService.getLeaugues();
+      var data = await leaguesService.getLeagues(countryId);
       List<LeaguesModel> leaguesList = [];
       for (var item in data['result']) {
         leaguesList.add(LeaguesModel.fromJson(item));

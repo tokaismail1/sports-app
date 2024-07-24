@@ -5,19 +5,19 @@ import 'package:sportsapp/service/teamsrepo.dart';
 
 part 'team_screen_state.dart';
 
-
-
 class TeamsScreenCubit extends Cubit<TeamsScreenState> {
   final TeamService _teamService;
 
   TeamsScreenCubit(this._teamService) : super(TeamsScreenInitial());
 
-  Future<void> fetchTeams(String leagueId) async {
+  Future<void> fetchTeams(int leagueId) async {
     emit(TeamsScreenLoading());
     try {
-      final teams = await _teamService.fetchTeams(leagueId);
-      emit(TeamsScreenLoaded(teams: teams));
+      final teams = await _teamService.fetchTeams(leagueId.toString());
+      print('Fetched teams: $teams');
+      emit(TeamsScreenLoaded(teams: teams, filteredTeams: teams));
     } catch (e) {
+      print('Error fetching teams: $e');
       emit(TeamsScreenError(error: e.toString()));
     }
   }
