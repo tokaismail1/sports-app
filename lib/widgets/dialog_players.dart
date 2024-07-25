@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:share/share.dart';
 import 'package:sportsapp/cubits/cubit/players_cubit.dart';
 import 'package:sportsapp/cubits/cubit/players_state.dart';
 import 'package:sportsapp/models/players_model.dart';
@@ -12,7 +13,13 @@ class CustomDialogWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
+    return GestureDetector(
+      onTap: () {
+        // Dismiss the keyboard
+        FocusScope.of(context).unfocus();
+      },
+      child:
+    Dialog(
       backgroundColor: Colors.transparent,
       child: Stack(
         children: [
@@ -26,7 +33,7 @@ class CustomDialogWidget extends StatelessWidget {
                     horizontal: 32,
                     vertical: 16,
                   ),
-                  margin: EdgeInsets.all(16),
+                  margin: EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(30),
@@ -64,6 +71,8 @@ class CustomDialogWidget extends StatelessWidget {
                       Text('Red Cards: ${playerData?.playerRedCards ?? ''}', style: TextStyle(fontSize: 18)),
                       Text('Goals: ${playerData?.playerGoals ?? ''}', style: TextStyle(fontSize: 18)),
                       Text('Assists: ${playerData?.playerAssists ?? ''}', style: TextStyle(fontSize: 18)),
+                      SizedBox(height: 10),
+                      _shareTextButton(context),
                     ],
                   ),
                 );
@@ -81,6 +90,7 @@ class CustomDialogWidget extends StatelessWidget {
                 color: Colors.white,
                 onPressed: () {
                   Navigator.of(context).pop();
+                  FocusScope.of(context).unfocus();
                 },
               ),
               decoration: BoxDecoration(
@@ -91,6 +101,33 @@ class CustomDialogWidget extends StatelessWidget {
           ),
         ],
       ),
+    ),
     );
   }
+
+
+
+
+
+  Widget _shareTextButton(BuildContext context) {
+  return IconButton(
+    onPressed: () {
+      String playerName = playerData?.playerName ?? '';
+      String teamName = playerData?.teamName ?? '';
+
+      // Share the data
+      Share.share(
+        'Player Name: $playerName Club: $teamName',
+      );
+
+      // Print the data to the console
+      print('Player Name: $playerName , Club: $teamName');
+    },
+    color: Colors.grey,
+    icon: Icon(
+      Icons.share,
+      size: 40,
+    ),
+  );
+}
 }

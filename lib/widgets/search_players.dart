@@ -7,8 +7,14 @@ class SearchPlayers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 80, bottom: 40),
+    return GestureDetector(
+      onTap: () {
+        // Close the keyboard and unfocus the text field when tapping outside
+        FocusScope.of(context).unfocus();
+      },
+      child: 
+    Container(
+      margin: EdgeInsets.only(top: 80, bottom: 60),
       padding: EdgeInsets.only(left: 20, right: 20),
       child: Row(
         children: [
@@ -47,6 +53,7 @@ class SearchPlayers extends StatelessWidget {
           ),
         ],
       ),
+    ),
     );
   }
 }
