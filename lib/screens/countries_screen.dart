@@ -115,6 +115,16 @@ class CountriesScreen extends StatelessWidget {
           },
         ),
       ),
+     floatingActionButton: FloatingActionButton(
+        onPressed: (
+          
+        ) {},
+        backgroundColor: Colors.white,
+    
+        child: Icon(Icons.location_on),
+      ),
     );
+    
   }
 }
+

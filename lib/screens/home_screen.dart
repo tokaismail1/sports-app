@@ -3,6 +3,7 @@ import 'package:sportsapp/screens/countries_screen.dart';
 import 'package:sportsapp/screens/login_screen.dart';
 
 class HomeScreen extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,7 +83,12 @@ class FootballWidget extends StatelessWidget {
       name: 'Football',
       image: 'assets/images/football.png',
       onTap: () {
-        Navigator.pushNamed(context, '/countries');
+        // Navigator.pushNamed(context, '/countries');
+        Navigator.push(
+  context,
+  MaterialPageRoute(builder: (context) => CountriesScreen()),
+);
+        
       },
     );
   }
