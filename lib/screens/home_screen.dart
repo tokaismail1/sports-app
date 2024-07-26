@@ -4,6 +4,8 @@ import 'package:sportsapp/screens/login_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   
+   final String? phoneNumber;
+   const HomeScreen({super.key, this.phoneNumber});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,25 +37,23 @@ class HomeScreen extends StatelessWidget {
                 IconButton(
                   icon: Icon(Icons.home, color: Colors.white),
                   onPressed: () {
-                         Navigator.push(
-                              context,
-                              MaterialPageRoute<void>(
-                                builder: (BuildContext context) =>
-                                    HomeScreen(),
-                              ),
-                            );
+                      Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (BuildContext context) => HomeScreen(),
+                  ),
+                );
                   },
                 ),
                 IconButton(
                   icon: Icon(Icons.login, color: Colors.white),
                   onPressed: () {
                        Navigator.push(
-                              context,
-                              MaterialPageRoute<void>(
-                                builder: (BuildContext context) =>
-                                    const LoginScreen(),
-                              ),
-                            );
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (BuildContext context) => LoginScreen(),
+                  ),
+                );
                   },
                 ),
               ],

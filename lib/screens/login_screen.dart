@@ -9,14 +9,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sportsapp/cubits/login_loading/login_loading_cubit.dart';
 import 'package:sportsapp/global/global.dart';
-
 import 'package:sportsapp/helpers/update_login_status.dart';
 import 'package:sportsapp/screens/home_screen.dart';
-import 'package:sportsapp/screens/start_screen.dart';
 import 'package:sportsapp/widgets/custom_buttton.dart';
 import 'package:sportsapp/widgets/cutom_textformfield.dart';
-
-
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -30,6 +26,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController otpController = TextEditingController();
   String otpNumber = '';
+  bool isLoading = false; // Added to manage loading state
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +60,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.start,
-
                     children: [
                       Text(
                         "Login",
@@ -150,55 +147,55 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: 30.0.h,
                           ),
                           CustomButton(
-                              label: Text("Generate OTP",
-                                  style: TextStyle(
-                                      color: Colors.black87, fontSize: 18.sp)),
-                              onPressed: () {
-                                Random random = Random();
-                                String randomDigits = '';
+                            label: Text("Generate OTP",
+                                style: TextStyle(
+                                    color: Colors.black87, fontSize: 18.sp)),
+                            onPressed: () {
+                              Random random = Random();
+                              String randomDigits = '';
 
-                                for (int i = 0; i < 4; i++) {
-                                  randomDigits += random.nextInt(10).toString();
-                                }
+                              for (int i = 0; i < 4; i++) {
+                                randomDigits += random.nextInt(10).toString();
+                              }
 
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      title: const Text("OTP"),
-                                      contentTextStyle: TextStyle(
-                                        fontSize: 24.0.sp,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
-                                      ),
-                                      content: Text(
-                                        randomDigits,
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                            FocusScope.of(context).unfocus();
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: const Text("OTP"),
+                                    contentTextStyle: TextStyle(
+                                      fontSize: 24.0.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                    content: Text(
+                                      randomDigits,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                          FocusScope.of(context).unfocus();
 
-                                            otpNumber = randomDigits;
-                                          },
-                                          child: const Text("OK",
-                                              style: TextStyle(
-                                                color: Colors.red,
-                                              )),
-                                        )
-                                      ],
-                                    );
-                                  },
-                                );
-                              }),
+                                          otpNumber = randomDigits;
+                                        },
+                                        child: const Text("OK",
+                                            style: TextStyle(
+                                              color: Colors.red,
+                                            )),
+                                      )
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                          ),
                           SizedBox(
                             height: 10.0.h,
                           ),
                           CustomButton(
-                            label: BlocBuilder<LoginLoadingCubit,
-                                LoginLoadingState>(
+                            label: BlocBuilder<LoginLoadingCubit, LoginLoadingState>(
                               builder: (context, state) {
                                 return isLoading == false
                                     ? Text("Login by using OTP",
@@ -216,7 +213,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             onPressed: () {
                               if (formKey.currentState!.validate()) {
-                                isLoading = !isLoading;
+                                setState(() {
+                                  isLoading = true;
+                                });
+
                                 BlocProvider.of<LoginLoadingCubit>(context)
                                     .isloading();
 
@@ -224,14 +224,31 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => StartScreen(
-                                                phoneNumber: phoneNumber,
+                                          builder: (context) => HomeScreen(
+                                                phoneNumber: phoneController.text,
                                               )));
 
                                   phoneController.clear();
                                   otpController.clear();
                                   updateLoginStatus(true);
-                                  isLoading = !isLoading;
+
+                                  // Show SnackBar after login
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Center(
+                                        child: Text(
+                                          "${phoneController.text} is logged in successfully",
+                                          style: const TextStyle(color: Color(0xFF5C5470)),
+                                        ),
+                                      ),
+                                      backgroundColor: Colors.white,
+                                      duration: const Duration(seconds: 2),
+                                    ),
+                                  );
+
+                                  setState(() {
+                                    isLoading = false;
+                                  });
 
                                   BlocProvider.of<LoginLoadingCubit>(context)
                                       .isloading();
@@ -249,7 +266,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   color: Colors.black87, fontSize: 18.sp),
                             ),
                             onPressed: () {
-                              
+                              // Add Google login functionality here
                             },
                             icon: const FaIcon(
                               FontAwesomeIcons.google,

@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sportsapp/cubits/cubit/cubit.dart';
 import 'package:sportsapp/cubits/cubit/state.dart';
 import 'package:sportsapp/models/country_response_model.dart';
+import 'package:sportsapp/screens/home_screen.dart';
 import 'package:sportsapp/screens/leagues_screen.dart';
+import 'package:sportsapp/screens/login_screen.dart';
 import 'package:sportsapp/service/country_response_repo.dart';
 import 'package:dio/dio.dart';
 //import 'package:sportsapp/widgets/Card.dart';
@@ -40,13 +42,23 @@ class CountriesScreen extends StatelessWidget {
                 IconButton(
                   icon: Icon(Icons.home, color: Colors.white),
                   onPressed: () {
-                    // Add home button functionality here
+                      Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (BuildContext context) => HomeScreen(),
+                  ),
+                );
                   },
                 ),
                 IconButton(
                   icon: Icon(Icons.login, color: Colors.white),
                   onPressed: () {
-                    // Add login button functionality here
+                       Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (BuildContext context) => LoginScreen(),
+                  ),
+                );
                   },
                 ),
               ],

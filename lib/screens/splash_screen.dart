@@ -47,7 +47,7 @@ class _SplashScreenState extends State<SplashScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getBool("isLoggedIn") == true) {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-        return StartScreen(
+        return HomeScreen(
           phoneNumber: prefs.getString("phoneNum")!,
         );
       }));
