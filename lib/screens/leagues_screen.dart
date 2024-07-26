@@ -37,6 +37,7 @@ class LeaguesScreen extends StatelessWidget {
             ),
           ),
           centerTitle: true,
+          iconTheme: IconThemeData(color:Colors.white),
         ),
         body: Column(
           children: [

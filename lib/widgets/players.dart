@@ -19,7 +19,8 @@ class PlayrsCard extends StatelessWidget {
       child: Stack(
         children: [
           Container(
-            height: 370,
+            height: 130,
+            width: 320,
             margin: EdgeInsets.only(left: 20, right: 20),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),

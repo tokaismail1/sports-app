@@ -28,12 +28,14 @@ class _StartScreenState extends State<StartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF5C5470),
+    
       body: Center(
         child: Text("${widget.phoneNumber} is logged in successfully",
             style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: Colors.black)),
+                color: Colors.white)),
       ),
     );
   }

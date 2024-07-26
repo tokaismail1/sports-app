@@ -35,20 +35,32 @@ class HomeScreen extends StatelessWidget {
                 IconButton(
                   icon: Icon(Icons.home, color: Colors.white),
                   onPressed: () {
-                    Navigator.pushNamed(context, '/home');
+                         Navigator.push(
+                              context,
+                              MaterialPageRoute<void>(
+                                builder: (BuildContext context) =>
+                                    HomeScreen(),
+                              ),
+                            );
                   },
                 ),
                 IconButton(
                   icon: Icon(Icons.login, color: Colors.white),
                   onPressed: () {
-                    Navigator.pushNamed(context, '/login');
+                       Navigator.push(
+                              context,
+                              MaterialPageRoute<void>(
+                                builder: (BuildContext context) =>
+                                    const LoginScreen(),
+                              ),
+                            );
                   },
                 ),
               ],
             ),
           ],
         ),
-        iconTheme: IconThemeData(color: Color.fromARGB(255, 159, 113, 168)),
+        iconTheme: IconThemeData(color:Colors.white),
       ),
       backgroundColor: Color(0xFF352F44),
       body: Padding(

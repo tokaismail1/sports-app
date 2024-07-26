@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sportsapp/cubits/cubit/team_screen_cubit.dart';
-import 'package:sportsapp/screens/players_screen.dart'; 
+import 'package:sportsapp/screens/players_screen.dart';
 
 class TeamsScreen extends StatefulWidget {
   final int leagueId;
@@ -68,6 +68,7 @@ class _TeamsScreenState extends State<TeamsScreen> {
                                 );
                               },
                               child: Card(
+                                color: Color(0xFF5C5470),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -85,7 +86,12 @@ class _TeamsScreenState extends State<TeamsScreen> {
                                       },
                                     ),
                                     SizedBox(height: 8),
-                                    Text(team.teamName),
+                                    Text(
+                                      team.teamName,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
